@@ -45,6 +45,7 @@ module dshr_strdata_mod
   use dshr_methods_mod , only : dshr_fldbun_getfldptr, dshr_fldbun_getfieldN, dshr_fldbun_fldchk, chkerr
   use dshr_methods_mod , only : dshr_fldbun_diagnose, dshr_fldbun_regrid, dshr_field_getfldptr
   use shr_sys_mod      , only : shr_sys_abort
+  use perf_mod         , only : t_startf, t_stopf
   
   use pio              , only : file_desc_t, iosystem_desc_t, io_desc_t, var_desc_t
   use pio              , only : pio_openfile, pio_closefile, pio_nowrite
@@ -295,10 +296,13 @@ contains
 
     ! Initialize sdat model domain
     sdat%model_mesh = model_mesh
+    call t_startf('shr_strdata_init_model_domain')
     call shr_strdata_init_model_domain(sdat, rc=rc)
     if (ChkErr(rc,__LINE__,u_FILE_u)) return
+    call t_stopf('shr_strdata_init_model_domain')
 
     ! Initialize sdat stream - ASSUME only 1 stream
+    call t_startf('shr_stream_init_from_inline')
     call shr_stream_init_from_inline(sdat%stream, &
          sdat%pio_subsystem, sdat%io_type, sdat%io_format, &
          stream_meshfile, stream_lev_dimname, stream_mapalgo, &
@@ -306,10 +310,13 @@ contains
          stream_offset, stream_taxmode, stream_tintalgo, stream_dtlimit, &
          stream_fldlistFile, stream_fldListModel, stream_fileNames, &
          logunit, trim(compname), src_mask, dst_mask)
+    call t_stopf('shr_stream_init_from_inline')
 
     ! Now finish initializing sdat
+    call t_startf('shr_strdata_init')
     call shr_strdata_init(sdat, model_clock, stream_name, rc)
     if (ChkErr(rc,__LINE__,u_FILE_u)) return
+    call t_stopf('shr_strdata_init')
 
   end subroutine shr_strdata_init_from_inline
 
@@ -414,6 +421,7 @@ contains
     ! Loop over streams
     do ns = 1,shr_strdata_get_stream_count(sdat)
 
+       call t_startf('shr_strdata_init_model_domain: setup')
        ! Initialize calendar for stream n
        call ESMF_VMBroadCast(vm, sdat%stream(ns)%calendar, CS, 0, rc=rc)
 
@@ -551,7 +559,9 @@ contains
        index = sdat%pstrm(ns)%stream_lb
        call dshr_fldbun_getFieldN(sdat%pstrm(ns)%fldbun_data(index), 1, lfield_dst, rc=rc)
        if (chkerr(rc,__LINE__,u_FILE_u)) return
+       call t_stopf('shr_strdata_init_model_domain: setup')
 
+       call t_startf('shr_strdata_init_model_domain: fieldregridstore')
        if (.not.  ESMF_MeshIsCreated(stream_mesh)) then
           sdat%stream(ns)%mapalgo = 'none'
        else
@@ -603,9 +613,11 @@ contains
              return
           end if
        end if
+       call t_stopf('shr_strdata_init_model_domain: fieldregridstore')
 
     end do ! end of loop over streams
 
+    call t_startf('shr_strdata_init_model_domain: ending')
     ! Check for vector pairs in the stream - BOTH ucomp and vcomp MUST BE IN THE SAME STREAM
     do ns = 1,shr_strdata_get_stream_count(sdat)
        stream_mesh => sdat%pstrm(ns)%stream_mesh
@@ -664,6 +676,7 @@ contains
        end if
        write(sdat%stream(1)%logunit,*) ' successfully initialized sdat'
     endif
+    call t_stopf('shr_strdata_init_model_domain: ending')
   end subroutine shr_strdata_init
 
   !===============================================================================
