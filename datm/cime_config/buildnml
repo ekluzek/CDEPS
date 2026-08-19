@@ -89,8 +89,11 @@ def _get_neon_data_availability(case, neonsite):
     expect(newestdate, "No tower data found on server for NEON site {}".format(neonsite))
     return None
 
-
+####################################################################################
 def _handle_pts_mode( case, config ):
+####################################################################################
+    """ Handle PTS mode settings for single column runs.  If PTS_LON and PTS_LAT are set, then set single_column to true.
+    """
     if case.get_value('PTS_LON'):
         scol_lon = float(case.get_value('PTS_LON'))
     else:
@@ -105,10 +108,16 @@ def _handle_pts_mode( case, config ):
         else:
             config['single_column'] = 'false'
 
-def _handle_model_grid(case, config, available_neon_data):
+####################################################################################
+def _handle_model_grid(case, config):
+####################################################################################
+    """ Handle model grid and particular settings for it for NEON and PLUMBER2 cases
+    """
+    available_neon_data = None
     model_grid = case.get_value("GRID")
     if 'CLM_USRDAT' in model_grid:
         config['model_grid'] = 'CLM_USRDAT'
+        clm_usrdat_name = case.get_value("CLM_USRDAT_NAME")
         if 'NEON' in clm_usrdat_name:
             neonsite = case.get_value("NEONSITE")
             config['neonsite'] = neonsite
@@ -123,8 +132,16 @@ def _handle_model_grid(case, config, available_neon_data):
                 config['plumber'] = "True"
     else:
         config['model_grid'] = model_grid
+    return available_neon_data
 
+####################################################################################
 def _error_check_cplhist_mode(case, config):
+####################################################################################
+    """ Error checks for cplhist mode.
+        Make sure needed settings are set when used.
+        Make sure directories expected exist
+        Make sure it works for all the different cplhist options
+    """
 
     check_cplhist = False
     if "cplhist" in config['datm_mode']:
@@ -192,8 +209,7 @@ def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path
     # Initialize namelist defaults
     config = {}
 
-    available_neon_data = None
-    _handle_model_grid(case, config, available_neon_data)
+    available_neon_data = _handle_model_grid(case, config)
 
     config['datm_mode'] = datm_mode
     config['datm_co2_tseries'] = datm_co2_tseries
