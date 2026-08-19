@@ -5314,7 +5314,8 @@
       <file first_year="$DATM_YR_START" last_year="$DATM_YR_END" filename_advance_days='1'>$DATM_CPLHIST_DIR/$DATM_CPLHIST_CASE.cpl.hx.atm.24h.avrg.%ymd-00000.nc</file>
     </stream_datafiles>
     <stream_datavars>
-      <var>a2x1d_Faxa_ndep  Faxa_ndep</var>
+      <var>atmImp_Faxa_ndep1  Faxa_ndep_nhx</var>
+      <var>atmImp_Faxa_ndep2  Faxa_ndep_noy</var>
     </stream_datavars>
     <stream_lev_dimname>null</stream_lev_dimname>
     <stream_mapalgo>
