@@ -90,6 +90,56 @@ def _get_neon_data_availability(case, neonsite):
     return None
 
 
+def _handle_pts_mode( case, config ):
+    if case.get_value('PTS_LON'):
+        scol_lon = float(case.get_value('PTS_LON'))
+    else:
+        scol_lon = -999.
+    if case.get_value('PTS_LAT'):
+        scol_lat = float(case.get_value('PTS_LAT'))
+    else:
+        scol_lat = -999.
+    if case.get_value('PTS_DOMAINFILE'):
+        if scol_lon > -999. and scol_lat > -999. and case.get_value("PTS_DOMAINFILE") != "UNSET":
+            config['single_column'] = 'true'
+        else:
+            config['single_column'] = 'false'
+
+def _handle_model_grid(case, config, available_neon_data):
+    model_grid = case.get_value("GRID")
+    if 'CLM_USRDAT' in model_grid:
+        config['model_grid'] = 'CLM_USRDAT'
+        if 'NEON' in clm_usrdat_name:
+            neonsite = case.get_value("NEONSITE")
+            config['neonsite'] = neonsite
+            if neonsite:
+                config['neon'] = "True"
+                # download and use the listing.csv file to determine data availablity
+                available_neon_data = _get_neon_data_availability(case, neonsite)
+        if 'PLUMBER2' in clm_usrdat_name:
+            plumber2site = case.get_value('PLUMBER2SITE')
+            config['plumber2site'] = plumber2site
+            if plumber2site:
+                config['plumber'] = "True"
+    else:
+        config['model_grid'] = model_grid
+
+def _error_check_cplhist_mode(case, config):
+
+    check_cplhist = False
+    if "cplhist" in config['datm_mode']:
+        check_cplhist = True
+    if "cplhist" in case.get_value("DATM_CO2_TSERIES"):
+        check_cplhist = True
+    if "cplhist" in case.get_value("DATM_PRESAERO"):
+        check_cplhist = True
+    if "cplhist" in case.get_value("DATM_PRESNDEP"):
+        check_cplhist = True
+    if "cplhist" in case.get_value("DATM_PRESO3"):
+        check_cplhist = True
+    if "cplhist" in case.get_value("DATM_TOPO"):
+        check_cplhist = True
+
 # pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
 ####################################################################################
 def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path):
@@ -115,7 +165,6 @@ def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path
     clm_usrdat_name = case.get_value("CLM_USRDAT_NAME")
     datm_co2_tseries = case.get_value("DATM_CO2_TSERIES")
     atm_grid = case.get_value("ATM_GRID")
-    model_grid = case.get_value("GRID")
     comp_lnd = case.get_value("COMP_LND")
     compset = case.get_value("COMPSET")
 
@@ -142,21 +191,9 @@ def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path
 
     # Initialize namelist defaults
     config = {}
+
     available_neon_data = None
-    if 'CLM_USRDAT' in model_grid:
-        config['model_grid'] = 'CLM_USRDAT'
-        if 'NEON' in clm_usrdat_name:
-            neonsite = case.get_value("NEONSITE")
-            if neonsite:
-                config['neon'] = "True"
-                # download and use the listing.csv file to determine data availablity
-                available_neon_data = _get_neon_data_availability(case, neonsite)
-        if 'PLUMBER2' in clm_usrdat_name:
-            plumber2site = case.get_value('PLUMBER2SITE')
-            if plumber2site:
-                config['plumber'] = "True"
-    else:
-        config['model_grid'] = model_grid
+    _handle_model_grid(case, config, available_neon_data)
 
     config['datm_mode'] = datm_mode
     config['datm_co2_tseries'] = datm_co2_tseries
@@ -165,19 +202,9 @@ def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path
     config['datm_preso3'] = datm_preso3
     config['clm_usrdat_name'] = clm_usrdat_name
 
-    if case.get_value('PTS_LON'):
-        scol_lon = float(case.get_value('PTS_LON'))
-    else:
-        scol_lon = -999.
-    if case.get_value('PTS_LAT'):
-        scol_lat = float(case.get_value('PTS_LAT'))
-    else:
-        scol_lat = -999.
-    if case.get_value('PTS_DOMAINFILE'):
-        if scol_lon > -999. and scol_lat > -999. and case.get_value("PTS_DOMAINFILE") != "UNSET":
-            config['single_column'] = 'true'
-        else:
-            config['single_column'] = 'false'
+    _handle_pts_mode( case, config )
+
+    _error_check_cplhist_mode(case, config)
 
     nmlgen.init_defaults(infile, config)
 
@@ -211,11 +238,11 @@ def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path
     if datm_co2_tseries != "none":
         streamlist.append("co2tseries.{}".format(datm_co2_tseries))
     if  clm_usrdat_name == 'NEON.PRISM':
-        streamlist.append(clm_usrdat_name+"_PRECIP."+neonsite)
+        streamlist.append(clm_usrdat_name+"_PRECIP."+config['neonsite'])
     if  clm_usrdat_name == 'NEON':
-        streamlist.append(clm_usrdat_name+".NEON_PRECIP."+neonsite)   
+        streamlist.append(clm_usrdat_name+".NEON_PRECIP."+config['neonsite'])   
     if clm_usrdat_name == 'PLUMBER2':
-        streamlist.append(clm_usrdat_name+"."+plumber2site)
+        streamlist.append(clm_usrdat_name+"."+config['plumber2site'])
 
     bias_correct = nmlgen.get_value("bias_correct")
     if bias_correct is not None:
