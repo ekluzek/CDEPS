@@ -94,19 +94,29 @@ def _handle_pts_mode( case, config ):
 ####################################################################################
     """ Handle PTS mode settings for single column runs.  If PTS_LON and PTS_LAT are set, then set single_column to true.
     """
+    missing = -999.99
     if case.get_value('PTS_LON'):
         scol_lon = float(case.get_value('PTS_LON'))
     else:
-        scol_lon = -999.
+        scol_lon = missing
     if case.get_value('PTS_LAT'):
         scol_lat = float(case.get_value('PTS_LAT'))
     else:
-        scol_lat = -999.
+        scol_lat = missing
     if case.get_value('PTS_DOMAINFILE'):
-        if scol_lon > -999. and scol_lat > -999. and case.get_value("PTS_DOMAINFILE") != "UNSET":
+        if scol_lon > missing and scol_lat > missing and case.get_value("PTS_DOMAINFILE") != "UNSET":
             config['single_column'] = 'true'
         else:
             config['single_column'] = 'false'
+
+    # Check that if either PTS_LON/PTS_LAT is set the other is as well
+    # TODO: NOTE: This should really be in CMEPS
+    print( scol_lon, scol_lat )
+    if (scol_lon != missing and scol_lat == missing) or (scol_lon == missing and scol_lat != missing):
+        expect(False, "If either PTS_LON or PTS_LAT is set, the other must be set as well")
+
+    # Verify that the expected output setting was actually done
+    expect(config['single_column'] is not None, "single_column should have been set in this subroutine")
 
 ####################################################################################
 def _handle_model_grid(case, config):
