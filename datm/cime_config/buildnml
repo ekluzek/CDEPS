@@ -157,6 +157,22 @@ def _error_check_cplhist_mode(case, config):
     if "cplhist" in case.get_value("DATM_TOPO"):
         check_cplhist = True
 
+    if check_cplhist:
+        cplhist_dir = case.get_value("DATM_CPLHIST_DIR")
+        cplhist_case = case.get_value("DATM_CPLHIST_CASE")
+        cplhist_domain = case.get_value("DATM_CPLHIST_DOMAIN_FILE")
+        expect(cplhist_case is not None, "DATM_CPLHIST_CASE must be set when using cplhist mode")
+        expect(cplhist_case != "UNSET", "DATM_CPLHIST_CASE must be set when using cplhist mode")
+        expect(cplhist_dir is not None, "DATM_CPLHIST_DIR must be set when using cplhist mode")
+        expect(os.path.isdir(cplhist_dir), "DATM_CPLHIST_DIR {} does not exist".format(cplhist_dir))
+        if cplhist_domain != "null":
+           expect(os.path.isfile(cplhist_domain), "DATM_CPLHIST_DOMAIN_FILE {} does not exist".format(cplhist_domain))
+    else:
+        cplhist_domain = case.get_value("DATM_CPLHIST_DOMAIN_FILE")
+        expect(cplhist_domain == "null", "DATM_CPLHIST_DOMAIN_FILE can only be set when using cplhist mode")
+        cplhist_case = case.get_value("DATM_CPLHIST_CASE")
+        expect(cplhist_case == "UNSET", "DATM_CPLHIST_CASE should only be set when using cplhist mode")
+
 # pylint: disable=too-many-arguments,too-many-locals,too-many-branches,too-many-statements
 ####################################################################################
 def _create_namelists(case, confdir, inst_string, infile, nmlgen, data_list_path):
