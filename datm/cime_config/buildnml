@@ -125,7 +125,8 @@ def _handle_model_grid(case, config):
     """
     available_neon_data = None
     model_grid = case.get_value("GRID")
-    clm_usrdat_name = case.get_value("CLM_USRDAT_NAME")
+    comp_lnd = case.get_value("COMP_LND")
+    clm_usrdat_name = case.get_value("CLM_USRDAT_NAME")   # NOTE: Will be None if not coupled to CLM
     if 'CLM_USRDAT' in model_grid:
         config['model_grid'] = 'CLM_USRDAT'
         # If CLM_USRDAT is being used, CLM_USRDAT_NAME must be set
@@ -143,36 +144,53 @@ def _handle_model_grid(case, config):
             if plumber2site:
                 config['plumber'] = "True"
     else:
-        expect(clm_usrdat_name == "UNSET", "CLM_USRDAT_NAME must NOT be set when NOT using a CLM_USRDAT grid")
         config['model_grid'] = model_grid
+        if comp_lnd != "clm":
+            expect(clm_usrdat_name is None, "CLM_USRDAT_NAME is not expected to exist when the land model is NOT CLM")
+            expect(available_neon_data is None, "available_neon_data should NOT be set when the land model is NOT CLM")
+            expect(not 'neonsite' in config, "neonsite should have NOT been set when the land model is NOT CLM")
+            expect(not 'neon' in config, "neon should have NOT been set when the land model is NOT CLM")
+            expect(not 'plumber2site' in config, "plumber2site should have NOT been set when the land model is NOT CLM")
+            expect(not 'plumber' in config, "plumber should have NOT been set when the land model is NOT CLM")
+        else:
+            expect(clm_usrdat_name == "UNSET", "CLM_USRDAT_NAME must NOT be set when NOT using a CLM_USRDAT grid")
 
+    #
     # Ensure output settings are done as expected
+    #
     expect(config['model_grid'] is not None, "model_grid should have been set in this subroutine")
-    if "NEON" in clm_usrdat_name:
-       expect(config['neon'] == "True", "neon should have been set in this subroutine, since NEON is on")
-       expect(config['neonsite'] is not None, "neonsite should have been set in this subroutine, since NEON is on")
-       expect(config['model_grid'] == "CLM_USRDAT", "model_grid should have been set to CLM_USRDAT because NEON is on")
-    else:
-       expect(available_neon_data is None, "available_neon_data should NOT be set if NEON is off")
-       expect(case.get_value('NEONSITE') == "", "NEONSITE should NOT have been set in this subroutine, since NEON is off")
-       expect(not 'neonsite' in config, "neonsite should have NOT been set in this subroutine, since NEON is off")
-       expect(not 'neon' in config, "neonshould have NOT been set in this subroutine, since NEON is off")
 
-    missing_yr_filename = 9999
-    if "PLUMBER2" in clm_usrdat_name:
-       expect(config['plumber2site'] is not None, "plumber2site should have been set in this subroutine")
-       expect(config['model_grid'] == "CLM_USRDAT", "model_grid should have been set to CLM_USRDAT because PLUMBER2 is on")
-       expect(config['plumber'] == "True", "plumber should have been set in this subroutine, since PLUMBER2 is on")
-       datm_mode = case.get_value("DATM_MODE")
-       if ( datm_mode == "CLM1PT" ):
-          expect(case.get_value('DATM_YR_START_FILENAME') != missing_yr_filename, "DATM_YR_START_FILENAME should have been set, since PLUMBER2 on")
-          expect(case.get_value('DATM_YR_END_FILENAME') != missing_yr_filename, "DATM_YR_END_FILENAME should have been set, since PLUMBER2 on")
-    else:
-       expect(case.get_value('PLUMBER2SITE') == "", "PLUMBER2SITE should NOT have been set in this subroutine, since PLUMBER2 is off")
-       expect(case.get_value('DATM_YR_START_FILENAME') == missing_yr_filename, "DATM_YR_START_FILENAME should NOT have been set, since PLUMBER2 is off")
-       expect(case.get_value('DATM_YR_END_FILENAME') == missing_yr_filename, "DATM_YR_END_FILENAME should NOT have been set, since PLUMBER2 is off")
-       expect(not 'plumber2site' in config, "plumber2site should have NOT been set in this subroutine, since PLUMBER2 is off")
-       expect(not 'plumber' in config, "plumber should have NOT been set in this subroutine, since PLUMBER2 is off")
+    #
+    # Check for expected settings when coupled to CLM for NEON and PLUMBER2 cases
+    #
+    if comp_lnd == "clm":
+        if "NEON" in clm_usrdat_name:
+            expect(config['neon'] == "True", "neon should have been set in this subroutine, since NEON is on")
+            expect(config['neonsite'] is not None, "neonsite should have been set in this subroutine, since NEON is on")
+            expect(config['model_grid'] == "CLM_USRDAT", "model_grid should have been set to CLM_USRDAT because NEON is on")
+        else:
+            expect(available_neon_data is None, "available_neon_data should NOT be set if NEON is off")
+            expect(case.get_value('NEONSITE') == "", "NEONSITE should NOT have been set in this subroutine, since NEON is off")
+            expect(not 'neonsite' in config, "neonsite should have NOT been set in this subroutine, since NEON is off")
+            expect(not 'neon' in config, "neon should have NOT been set in this subroutine, since NEON is off")
+
+        missing_yr_filename = 9999
+        if "PLUMBER2" in clm_usrdat_name:
+            expect(config['plumber2site'] is not None, "plumber2site should have been set in this subroutine")
+            expect(config['model_grid'] == "CLM_USRDAT", "model_grid should have been set to CLM_USRDAT because PLUMBER2 is on")
+            expect(config['plumber'] == "True", "plumber should have been set in this subroutine, since PLUMBER2 is on")
+            datm_mode = case.get_value("DATM_MODE")
+            if ( datm_mode == "CLM1PT" ):
+                expect(case.get_value('DATM_YR_START_FILENAME') != missing_yr_filename, "DATM_YR_START_FILENAME should have been set, since PLUMBER2 on")
+                expect(case.get_value('DATM_YR_END_FILENAME') != missing_yr_filename, "DATM_YR_END_FILENAME should have been set, since PLUMBER2 on")
+            else:
+                expect(case.get_value('DATM_YR_START_FILENAME') == missing_yr_filename, "DATM_YR_START_FILENAME should NOT have been set, since PLUMBER2 is off")
+                expect(case.get_value('DATM_YR_END_FILENAME') == missing_yr_filename, "DATM_YR_END_FILENAME should NOT have been set, since PLUMBER2 is off")
+
+        else:
+            expect(case.get_value('PLUMBER2SITE') == "", "PLUMBER2SITE should NOT have been set in this subroutine, since PLUMBER2 is off")
+            expect(not 'plumber2site' in config, "plumber2site should have NOT been set in this subroutine, since PLUMBER2 is off")
+            expect(not 'plumber' in config, "plumber should have NOT been set in this subroutine, since PLUMBER2 is off")
 
     # Return the data available for NEON
     return available_neon_data
