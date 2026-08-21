@@ -108,6 +108,7 @@
     <default_value>clim_2000</default_value>
     <values match="last">
       <value compset="^1850_"       >clim_1850_cmip6</value>
+      <value compset="^1850_.*CLM60">clim_1850_cesm3_for_cmip7</value>
       <value compset="^2000_"       >clim_2000_cmip6</value>
       <value compset="^2010_"       >clim_2010_cmip6</value>
       <value compset="^HIST_"       >hist_cmip6</value>
