@@ -111,7 +111,6 @@ def _handle_pts_mode( case, config ):
 
     # Check that if either PTS_LON/PTS_LAT is set the other is as well
     # TODO: NOTE: This should really be in CMEPS
-    print( scol_lon, scol_lat )
     if (scol_lon != missing and scol_lat == missing) or (scol_lon == missing and scol_lat != missing):
         expect(False, "If either PTS_LON or PTS_LAT is set, the other must be set as well")
 
