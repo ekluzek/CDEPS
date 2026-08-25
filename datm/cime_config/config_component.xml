@@ -240,7 +240,7 @@
       <value compset="1850.*_DATM%CRUJRA2024[b]*">1</value>
       <value compset="1850.*_DATM%CRUv7">1</value>
       <value compset="1850.*_DATM%GSW">1</value>
-      <value compset="1850.*_DATM%CPLHIST_CLM60">101</value>
+      <value compset="1850.*_DATM%CPLHIST_CLM60">1</value>
       <value compset="HIST.*_DATM%QIA">1895</value>
       <value compset="HIST.*_DATM%CRUJRA2024[b]*">1901</value>
       <value compset="HIST.*_DATM%CRUv7">1901</value>
