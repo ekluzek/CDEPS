@@ -179,11 +179,15 @@
       <value compset="^20TR"   >cmip6_20tr</value>
       <value compset="^OMIP_DATM%IAF.*_POP2%[^_]*ECO">omip.iaf</value>
       <value compset="^OMIP_DATM%JRA.*_POP2%[^_]*ECO">omip.jra</value>
-      <value compset="_DATM%CPLHIST">cplhist</value>
+      <value compset="_DATM%CPLHIST_CLM">cplhist</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
-    <desc>DATM CO2 time series</desc>
+    <desc>DATM CO2 time series
+          NOTE: This needs to be coordinated with CCSM_BGC in CMEPS, and wtih either the ocean or land model
+            For CLM coordinate it with the CLM_CO2_TYPE variable
+            For MOM coordinate it with the OCN_CO2_TYPE variable
+    </desc>
   </entry>
 
   <entry id="DATM_CPLHIST_DOMAIN_FILE">
