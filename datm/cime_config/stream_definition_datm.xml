@@ -4935,13 +4935,6 @@
       <!-- the following stream fields are in units of g/m2/sec - need conversion to kg/m2/sec-->
       <var>NDEP_NHx_month  Faxa_ndep_nhx</var>
       <var>NDEP_NOy_month  Faxa_ndep_noy</var>
-      <!-- Alturnative form to use:
-      the following stream fields are in units of kg/m2/sec - so need no unit conversion
-      <var>dry_deposition_NHx_as_N Faxa_ndep_nhx_dry</var>
-      <var>wet_deposition_NHx_as_N Faxa_ndep_nhx_wet</var>
-      <var>dry_deposition_NOy_as_N Faxa_ndep_noy_dry</var>
-      <var>wet_deposition_NOy_as_N Faxa_ndep_noy_wet</var>
-      -->
     </stream_datavars>
     <stream_lev_dimname>null</stream_lev_dimname>
     <stream_mapalgo>

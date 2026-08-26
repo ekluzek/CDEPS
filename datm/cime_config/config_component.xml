@@ -184,7 +184,7 @@
     <group>run_component_datm</group>
     <file>env_run.xml</file>
     <desc>DATM CO2 time series
-          NOTE: This needs to be coordinated with CCSM_BGC in CMEPS, and wtih either the ocean or land model
+          NOTE: This needs to be coordinated with CCSM_BGC in CMEPS, and with either the ocean or land model
             For CLM coordinate it with the CLM_CO2_TYPE variable
             For MOM coordinate it with the OCN_CO2_TYPE variable
     </desc>
