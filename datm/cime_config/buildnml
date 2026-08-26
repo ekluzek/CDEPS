@@ -192,7 +192,7 @@ def _handle_model_grid(case, config):
             expect(config['model_grid'] == "CLM_USRDAT", "model_grid should have been set to CLM_USRDAT because PLUMBER2 is on")
             expect(config['plumber'] == "True", "plumber should have been set in this subroutine, since PLUMBER2 is on")
             datm_mode = case.get_value("DATM_MODE")
-            if ( datm_mode == "CLM1PT" ):
+            if ( datm_mode == "1PT" ):
                 expect(case.get_value('DATM_YR_START_FILENAME') != missing_yr_filename, "DATM_YR_START_FILENAME should have been set, since PLUMBER2 on")
                 expect(case.get_value('DATM_YR_END_FILENAME') != missing_yr_filename, "DATM_YR_END_FILENAME should have been set, since PLUMBER2 on")
             else:
