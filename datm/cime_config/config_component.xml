@@ -211,7 +211,7 @@
     <valid_values></valid_values>
     <default_value>$CIME_OUTPUT_ROOT/archive/$DATM_CPLHIST_CASE/cpl/hist</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST_CLM60">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
+      <value compset="1850.*_DATM%CPLHIST.*_CLM60">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
