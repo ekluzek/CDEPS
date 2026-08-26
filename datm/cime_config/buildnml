@@ -92,7 +92,7 @@ def _get_neon_data_availability(case, neonsite):
 ####################################################################################
 def _handle_pts_mode( case, config ):
 ####################################################################################
-    """ Handle PTS mode settings for single column runs.  If PTS_LON and PTS_LAT are set, then set single_column to true.
+    """ Handle PTS mode settings for single column runs.  If PTS_LON and PTS_LAT are set, then set config[single_column] to true.
     """
     missing = -999.99
     if case.get_value('PTS_LON'):
@@ -120,7 +120,20 @@ def _handle_pts_mode( case, config ):
 ####################################################################################
 def _handle_model_grid(case, config):
 ####################################################################################
-    """ Handle model grid and particular settings for it for NEON and PLUMBER2 cases
+    """ Set config['model grid'] always
+    Also do some checking and set needed variables for a CLM user defined grid.
+    For a CLM single-point/regional case (CLM user defined grid)
+        Set config['model_grid'] to CLM_USRDAT to signify this
+        For a NEON case
+          set config['neonsite']
+          config['neon'] is True
+        For a PLUMBER2 case
+          set config['plumber2site']
+          config['plumber2'] is True
+
+    Will fail if settings aren't setup as expected
+
+    Returns an empty list normally; for a NEON case it returns the list of available NEON data
     """
     available_neon_data = None
     model_grid = case.get_value("GRID")
@@ -221,8 +234,7 @@ def _error_check_cplhist_mode(case, config):
         cplhist_dir = case.get_value("DATM_CPLHIST_DIR")
         cplhist_case = case.get_value("DATM_CPLHIST_CASE")
         cplhist_domain = case.get_value("DATM_CPLHIST_DOMAIN_FILE")
-        expect(cplhist_case is not None, "DATM_CPLHIST_CASE must be set when using cplhist mode")
-        expect(cplhist_case != "UNSET", "DATM_CPLHIST_CASE must be set when using cplhist mode")
+        expect(cplhist_case is not None and cplhist_case != UNSET, "DATM_CPLHIST_CASE must be set when using cplhist mode")
         expect(cplhist_dir is not None, "DATM_CPLHIST_DIR must be set when using cplhist mode")
         expect(os.path.isdir(cplhist_dir), "DATM_CPLHIST_DIR {} does not exist".format(cplhist_dir))
         if cplhist_domain != "null":
