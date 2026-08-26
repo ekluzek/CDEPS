@@ -362,7 +362,7 @@
       <value   compset="1850.*_DATM%CRUv7">1920</value>
       <value   compset="1850.*_DATM%GSW">1920</value>
       <value   compset="1850.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
-      <value   compset="1850.*_DATM%CPLHIST_CLM60">101</value>
+      <value   compset="1850.*_DATM%CPLHIST.*_CLM60">101</value>
       <value   compset="2000.*_DATM%WISOQIA">2004</value>
       <value   compset="2000.*_DATM%QIA">2004</value>
       <value   compset="HIST.*_DATM%QIA">1972</value>
