@@ -211,7 +211,7 @@
     <valid_values></valid_values>
     <default_value>$CIME_OUTPUT_ROOT/archive/$DATM_CPLHIST_CASE/cpl/hist</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST_CLM60">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
+      <value compset="1850.*_DATM%CPLHIST.*_CLM60">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -223,7 +223,7 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST_CLM60">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
+      <value compset="1850.*_DATM%CPLHIST.*_CLM60">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -240,7 +240,7 @@
       <value compset="1850.*_DATM%CRUJRA2024[b]*">1</value>
       <value compset="1850.*_DATM%CRUv7">1</value>
       <value compset="1850.*_DATM%GSW">1</value>
-      <value compset="1850.*_DATM%CPLHIST_CLM60">1</value>
+      <value compset="1850.*_DATM%CPLHIST.*_CLM60">1</value>
       <value compset="HIST.*_DATM%QIA">1895</value>
       <value compset="HIST.*_DATM%CRUJRA2024[b]*">1901</value>
       <value compset="HIST.*_DATM%CRUv7">1901</value>
@@ -290,7 +290,7 @@
       <value compset="1850.*_DATM%CRUv7">1901</value>
       <value compset="1850.*_DATM%GSW">1901</value>
       <value compset="1850.*_DATM%NLDAS2">0</value>  <!-- Unsupported -->
-      <value compset="1850.*_DATM%CPLHIST_CLM60">101</value>
+      <value compset="1850.*_DATM%CPLHIST.*_CLM60">101</value>
       <value compset="2000.*_DATM%WISOQIA">2000</value>
       <value compset="2000.*_DATM%QIA">1972</value>
       <value compset="HIST.*_DATM%QIA">1948</value>
@@ -362,7 +362,7 @@
       <value   compset="1850.*_DATM%CRUv7">1920</value>
       <value   compset="1850.*_DATM%GSW">1920</value>
       <value   compset="1850.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
-      <value   compset="1850.*_DATM%CPLHIST_CLM60">101</value>
+      <value   compset="1850.*_DATM%CPLHIST.*_CLM60">101</value>
       <value   compset="2000.*_DATM%WISOQIA">2004</value>
       <value   compset="2000.*_DATM%QIA">2004</value>
       <value   compset="HIST.*_DATM%QIA">1972</value>
