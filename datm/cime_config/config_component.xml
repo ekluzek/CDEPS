@@ -223,7 +223,7 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST_CLM60">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
+      <value compset="1850.*_DATM%CPLHIST.*_CLM60">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
