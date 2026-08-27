@@ -5307,6 +5307,8 @@
       <file first_year="$DATM_YR_START" last_year="$DATM_YR_END" filename_advance_days='1'>$DATM_CPLHIST_DIR/$DATM_CPLHIST_CASE.cpl.hx.atm.24h.avrg.%ymd-00000.nc</file>
     </stream_datafiles>
     <stream_datavars>
+      <!-- the following stream fields are in units of kg(N)/m2/sec - so don't need conversion, but because they are only two variables it will assume it's in g(N)/m2/sec and divide by a 1000. -->^
+      <!-- See: https://github.com/ESCOMP/CDEPS/issues/437 -->
       <var>atmImp_Faxa_ndep1  Faxa_ndep_nhx</var>
       <var>atmImp_Faxa_ndep2  Faxa_ndep_noy</var>
     </stream_datavars>
