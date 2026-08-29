@@ -110,7 +110,7 @@
     <default_value>clim_2000</default_value>
     <values match="last">
       <value compset="^1850_"       >clim_1850_cmip6</value>
-      <value compset="^1850_.*CLM60">clim_1850_cesm3_for_cmip7</value>
+      <value coupling_mode="cesm" compset="^1850_.*CLM">clim_1850_cesm3_for_cmip7</value>
       <value compset="^2000_"       >clim_2000_cmip6</value>
       <value compset="^2010_"       >clim_2010_cmip6</value>
       <value compset="^HIST_"       >hist_cmip6</value>
@@ -181,7 +181,7 @@
       <value compset="^20TR"   >cmip6_20tr</value>
       <value compset="^OMIP_DATM%IAF.*_POP2%[^_]*ECO">omip.iaf</value>
       <value compset="^OMIP_DATM%JRA.*_POP2%[^_]*ECO">omip.jra</value>
-      <value compset="_DATM%CPLHIST_CLM">cplhist</value>
+      <value coupling_mode="cesm" compset="_DATM%CPLHIST_CLM">cplhist</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -211,13 +211,22 @@
   <entry id="DATM_CPLHIST_DIR">
     <type>char</type>
     <valid_values></valid_values>
-    <default_value>$CIME_OUTPUT_ROOT/archive/$DATM_CPLHIST_CASE/cpl/hist</default_value>
+    <default_value>UNSET</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST.*_CLM60">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
+      <value coupling_mode="cesm" compset="1850.*_DATM%CPLHIST.*_CLM">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
-    <desc>directory for coupler history data mode (only used for when DATM_MODE is CPLHIST)</desc>
+    <desc>
+      Directory for coupler history data mode (used when DATM_MODE is CPLHIST)
+      May also be used if and of these are set to cplhist: DATM_PRESAERO, DATM_NDEP, DATM_CO2_TSERIES, DATM_PRESO3, or DATM_TOPO
+      NOTE: This needs to be the full directory path where the CPLHIST files are stored, including the subdirectory for the CASENAME (that can be set using $DATM_CPLHIST_CASE)
+            We thus recommend that $DATM_CPLHIST_CASE be used in here to specify that case subdirectory.
+            This allows the DATM_CPLHIST_DIR to be set for all your CPLHIST datafiles, and you only need to modify $DATM_CPLHIST_CASE to point to a different CASE.
+            For example, to use the CPLHIST data generated from a case that you ran do this:
+            ./xmlchange DATM_CPLHIST_DIR='$CIME_OUTPUT_ROOT/archive/$DATM_CPLHIST_CASE/cpl/hist'
+            Which will then use the CPL history files in your archive directory where the case that created the CPLHIST data you want to use is"
+    </desc>
   </entry>
 
   <entry id="DATM_CPLHIST_CASE">
@@ -225,7 +234,7 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST.*_CLM60">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
+      <value coupling_mode="cesm" compset="1850.*_DATM%CPLHIST.*_CLM">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -242,7 +251,6 @@
       <value compset="1850.*_DATM%CRUJRA2024[b]*">1</value>
       <value compset="1850.*_DATM%CRUv7">1</value>
       <value compset="1850.*_DATM%GSW">1</value>
-      <value compset="1850.*_DATM%CPLHIST.*_CLM60">1</value>
       <value compset="HIST.*_DATM%QIA">1895</value>
       <value compset="HIST.*_DATM%CRUJRA2024[b]*">1901</value>
       <value compset="HIST.*_DATM%CRUv7">1901</value>
@@ -292,7 +300,7 @@
       <value compset="1850.*_DATM%CRUv7">1901</value>
       <value compset="1850.*_DATM%GSW">1901</value>
       <value compset="1850.*_DATM%NLDAS2">0</value>  <!-- Unsupported -->
-      <value compset="1850.*_DATM%CPLHIST.*_CLM60">101</value>
+      <value coupling_mode="cesm" compset="1850.*_DATM%CPLHIST.*_CLM">101</value>
       <value compset="2000.*_DATM%WISOQIA">2000</value>
       <value compset="2000.*_DATM%QIA">1972</value>
       <value compset="HIST.*_DATM%QIA">1948</value>
@@ -364,7 +372,7 @@
       <value   compset="1850.*_DATM%CRUv7">1920</value>
       <value   compset="1850.*_DATM%GSW">1920</value>
       <value   compset="1850.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
-      <value   compset="1850.*_DATM%CPLHIST.*_CLM60">101</value>
+      <value   coupling_mode="cesm" compset="1850.*_DATM%CPLHIST.*_CLM">101</value>
       <value   compset="2000.*_DATM%WISOQIA">2004</value>
       <value   compset="2000.*_DATM%QIA">2004</value>
       <value   compset="HIST.*_DATM%QIA">1972</value>
