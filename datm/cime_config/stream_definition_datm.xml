@@ -191,6 +191,7 @@
   optional stream nitrogen deposition
   - DATM_NDEP is set by the 4 character time prefix in config_component.xml
   ========================
+  presndep.clim_1850_cesm3
   presndep.clim_1850_cmip7
   presndep.clim_2000_cmip7
   presndep.clim_2010_cmip7
@@ -4924,7 +4925,7 @@
     <stream_readmode>single</stream_readmode>
   </stream_entry>
 
-  <stream_entry name="presndep.clim_1850_cesm3_for_cmip7">
+  <stream_entry name="presndep.clim_1850_cesm3">
     <stream_meshfile>
       <meshfile>$DIN_LOC_ROOT/share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</meshfile>
     </stream_meshfile>

@@ -107,13 +107,13 @@
 
   <entry id="DATM_PRESNDEP">
     <type>char</type>
-    <!-- NOTE: Here clim_1850_cesm3_for_cmip7 means the 1850 climatological dataset that CESM3.0 will use for CMIP7 that is from it's spinup simulation -->
+    <!-- NOTE: Here clim_1850_cesm3 means the 1850 climatological dataset that CESM3.0 will use for CMIP7 that is from it's spinup simulation -->
     <!--       In contrast is clim_1850_cmip7 is the 1850 data provided by CMIP7 -->
-    <valid_values>none,clim_1850_cesm3_for_cmip7,clim_1850_cmip7,clim_2000_cmip7,clim_2010_cmip7,hist_cmip7,clim_1850_cmip6,clim_2000_cmip6,clim_2010_cmip6,hist_cmip6,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-3.4,SSP5-8.5,cplhist</valid_values>
+    <valid_values>none,clim_1850_cesm3,clim_1850_cmip7,clim_2000_cmip7,clim_2010_cmip7,hist_cmip7,clim_1850_cmip6,clim_2000_cmip6,clim_2010_cmip6,hist_cmip6,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-3.4,SSP5-8.5,cplhist</valid_values>
     <default_value>clim_2000</default_value>
     <values match="last">
       <value compset="^1850_"       >clim_1850_cmip6</value>
-      <value compset="^1850_.*CLM"  >clim_1850_cesm3_for_cmip7</value>
+      <value compset="^1850_.*CLM"  >clim_1850_cesm3</value>
       <value compset="^2000_"       >clim_2000_cmip6</value>
       <value compset="^2010_"       >clim_2010_cmip6</value>
       <value compset="^HIST_"       >hist_cmip6</value>
