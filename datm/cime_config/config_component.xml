@@ -112,12 +112,11 @@
     <valid_values>none,clim_1850_cesm3,clim_1850_cmip7,clim_2000_cmip7,clim_2010_cmip7,hist_cmip7,clim_1850_cmip6,clim_2000_cmip6,clim_2010_cmip6,hist_cmip6,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-3.4,SSP5-8.5,cplhist</valid_values>
     <default_value>clim_2000</default_value>
     <values match="last">
-      <value compset="^1850_"       >clim_1850_cmip6</value>
-      <value compset="^1850_.*CLM"  >clim_1850_cesm3</value>
+      <!-- NOTE: Will distinququish between CESM and NorESM in a subsequent step -->
+      <value compset="^1850_"       >clim_1850_cesm3</value>
       <value compset="^2000_"       >clim_2000_cmip6</value>
       <value compset="^2010_"       >clim_2010_cmip6</value>
       <value compset="^HIST_"       >hist_cmip6</value>
-      <value compset="^20TR_"       >hist_cmip6</value>
       <value compset="^SSP126_"     >SSP1-2.6</value>
       <value compset="^SSP245_"     >SSP2-4.5</value>
       <value compset="^SSP370_"     >SSP3-7.0</value>
@@ -216,7 +215,8 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST.*_CLM">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
+      <!-- NOTE: This will be updated to distinquish between CESM and NorESM in a subsequent step -->
+      <value compset="1850.*_DATM%CPLHIST">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -237,7 +237,8 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <value compset="1850.*_DATM%CPLHIST.*_CLM">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
+      <!-- NOTE: This will be updated to distinquish between CESM and NorESM in a subsequent step -->
+      <value compset="1850.*_DATM%CPLHIST">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -303,7 +304,10 @@
       <value compset="1850.*_DATM%CRUv7">1901</value>
       <value compset="1850.*_DATM%GSW">1901</value>
       <value compset="1850.*_DATM%NLDAS2">0</value>  <!-- Unsupported -->
+      <!-- NOTE: This will be updated to distinquish between CESM NorESM in a subsequent step -->
       <value compset="1850.*_DATM%CPLHIST.*_CLM">101</value>
+      <value compset="1850.*_DATM%CPLHIST.*_MOM6">101</value>
+
       <value compset="2000.*_DATM%WISOQIA">2000</value>
       <value compset="2000.*_DATM%QIA">1972</value>
       <value compset="HIST.*_DATM%QIA">1948</value>
@@ -375,7 +379,10 @@
       <value   compset="1850.*_DATM%CRUv7">1920</value>
       <value   compset="1850.*_DATM%GSW">1920</value>
       <value   compset="1850.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
+      <!-- NOTE: This will be updated to distinquish between CESM NorESM in a subsequent step -->
       <value   compset="1850.*_DATM%CPLHIST.*_CLM">101</value>
+      <value   compset="1850.*_DATM%CPLHIST.*_MOM6">101</value>
+
       <value   compset="2000.*_DATM%WISOQIA">2004</value>
       <value   compset="2000.*_DATM%QIA">2004</value>
       <value   compset="HIST.*_DATM%QIA">1972</value>
