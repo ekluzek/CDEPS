@@ -4785,6 +4785,7 @@
   <!--  presndep forcing streams -->
   <!-- ===================-->
 
+  <!-- Nitrogen deposition data provided by CMIP7 -->
   <stream_entry name="presndep.clim_1850_cmip7">
     <stream_meshfile>
       <meshfile>$DIN_LOC_ROOT/atm/ndep/cmip7/ndep_input4MIPs_surfaceFluxes_ESMFmesh_cdf5_c20251211.nc</meshfile>
@@ -4925,6 +4926,7 @@
     <stream_readmode>single</stream_readmode>
   </stream_entry>
 
+  <!-- Climatological NDEP data from a CESM30 1850 case -->
   <stream_entry name="presndep.clim_1850_cesm3">
     <stream_meshfile>
       <meshfile>$DIN_LOC_ROOT/share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</meshfile>
@@ -4958,6 +4960,7 @@
     <stream_readmode>single</stream_readmode>
   </stream_entry>
 
+  <!-- Climatological NDEP data from a CESM20 1850 case used for CMIP6 -->
   <stream_entry name="presndep.clim_1850_cmip6">
     <stream_meshfile>
       <meshfile>$DIN_LOC_ROOT/share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</meshfile>
@@ -5090,6 +5093,7 @@
     <stream_readmode>single</stream_readmode>
   </stream_entry>
 
+  <!-- NDEP data from a CESM21 future scenario (i.e. Shared Socioeconomic Pathway (SSP)) case used for CMIP6 -->
   <stream_entry name="presndep.SSP1-2.6">
     <stream_meshfile>
       <meshfile>$DIN_LOC_ROOT/share/meshes/fv0.9x1.25_141008_polemod_ESMFmesh.nc</meshfile>
