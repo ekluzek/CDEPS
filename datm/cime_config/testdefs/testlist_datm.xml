@@ -43,13 +43,23 @@
       <option name="wallclock"> 00:10:00 </option>
     </options>
   </test>
-  <test compset="1850_DATM%CPLHIST_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mt232" name="SMS_Ld5">
+  <test compset="1850_DATM%GSWP3v1%CESM3_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mg37" name="SMS_Ld5">
+    <machines>
+      <machine name="derecho" compiler="intel" category="aux_cdeps"/>
+      <machine name="betzy" compiler="intel" category="aux_cdeps_noresm"/>
+    </machines>
+    <options>
+      <option name="wallclock"> 00:10:00 </option>
+      <option name="comment">Make sure GSWP3v1 forcing for CESM3 will run</option>
+    </options>
+  </test>
+  <test compset="1850_DATM%CPLHIST%CESM3_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mt232" name="SMS_Ld5">
     <machines>
       <machine name="derecho" compiler="intel" category="aux_cdeps"/>
     </machines>
     <options>
       <option name="wallclock"> 00:10:00 </option>
-      <option name="comment">Make sure CPLHIST mode will run</option>
+      <option name="comment">Make sure CPLHIST mode for CESM3 will run</option>
     </options>
   </test>
   <test compset="1850_DATM%CRUJRA2024b_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mt232" name="SMS_D_Ld5" testmods="datm/cplhist_create">
@@ -68,6 +78,15 @@
     <options>
       <option name="wallclock"> 00:10:00 </option>
       <option name="comment">Make sure can run creating CPLHIST data to run DATM from with DEBUG off</option>
+    </options>
+  </test>
+  <test compset="1850_DATM%CRUJRA2024b%CESM3_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mt232" name="ERS_Ld5" testmods="datm/cplhist_create">
+    <machines>
+      <machine name="derecho" compiler="intel" category="aux_cdeps"/>
+    </machines>
+    <options>
+      <option name="wallclock"> 00:10:00 </option>
+      <option name="comment">Make sure can run creating CPLHIST data to run DATM from with DEBUG off and CESM3 data</option>
     </options>
   </test>
   <test compset="2010_DATM%GSWP3v1_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mg37" name="SMS_Ld5">
@@ -156,6 +175,16 @@
     <options>
       <option name="wallclock"> 00:10:00 </option>
       <option name="comment">Test 1850 CRUJRA2024b forcing in a short smoke test to make sure it works</option>
+    </options>
+  </test>
+  <test compset="1850_DATM%CRUJRA2024b%CESM3_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mg37" name="SMS_Ld5">
+    <machines>
+      <machine name="derecho" compiler="intel" category="aux_cdeps"/>
+      <machine name="betzy" compiler="intel" category="aux_cdeps_noresm"/>
+    </machines>
+    <options>
+      <option name="wallclock"> 00:10:00 </option>
+      <option name="comment">Test 1850 CRUJRA2024b forcing for CESM3 in a short smoke test to make sure it works</option>
     </options>
   </test>
   <test compset="2010_DATM%CRUJRA2024b_SLND_SICE_SOCN_SROF_SGLC_SWAV_SESP" grid="f10_f10_mg37" name="SMS_Ld5">
