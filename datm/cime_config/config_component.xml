@@ -12,8 +12,10 @@
        Attributes that can be used for entry tags defined in cime:
           grid, compset, cime_model
   -->
-  <description modifier_mode="1">
-    <desc atm="DATM[%QIA][%WISOQIA][%CRUJRA2024][%CRUJRA2024b][%CRUv7][%GSWP3v1][%MOSARTTEST][%NLDAS2][%CPLHIST][%1PT][%NYF][%IAF][%JRA][%JRA-1p4-2018][%JRA-1p5-2023][%JRA-RYF6162][%JRA-RYF8485][%JRA-RYF9091][%JRA-RYF0304][%SIMPLE]"> Data driven ATM </desc>
+  <description modifier_mode="+">
+    <desc atm="DATM[%QIA][%WISOQIA][%CRUJRA2024][%CRUJRA2024b][%CRUv7][%GSWP3v1][%MOSARTTEST][%NLDAS2][%CPLHIST][%1PT][%NYF][%IAF][%JRA][%JRA-1p4-2018][%JRA-1p5-2023][%JRA-RYF6162][%JRA-RYF8485][%JRA-RYF9091][%JRA-RYF0304][%SIMPLE][%CESM3]"> Data driven ATM </desc>
+    <!-- Following options are the different forcing modes - only one can be selected at a time -->
+    <!-- NOTE: Model specific setting HAS to appear first -->
     <desc option="QIA"> QIAN data set </desc>
     <desc option="WISOQIA">QIAN with water isotopes</desc>
     <desc option="CRUJRA2024"> CRUJRA 2024 data set </desc>
@@ -34,6 +36,9 @@
     <desc option="JRA-RYF0304"> JRA55 Repeat Year Forcing v1.3 2003-2004</desc>
     <desc option="ERA5">ERA5 interannual forcing</desc>
     <desc option="SIMPLE">Namelist-configurable, constant datm forcing for simple experiments</desc>
+    <!-- Optional Model specific settings -->
+    <!-- NOTE: Model specific setting HAS to appear last -->
+    <desc option="CESM3">CESM3 specific settings for DATM</desc>
   </description>
 
   <entry id="COMP_ATM">
@@ -96,7 +101,6 @@
       <value compset="^SSP534_" >SSP5-3.4</value>
       <value compset="^SSP585_" >SSP5-8.5</value>
       <value compset="^HIST_"   >hist</value>
-      <value compset="^20TR_"   >hist</value>
       <value compset="_DATM%CPLHIST">cplhist</value>
       <value compset="_DATM.*_DICE.*_DOCN.*_DROF">none</value>
     </values>
@@ -112,16 +116,16 @@
     <valid_values>none,clim_1850_cesm3,clim_1850_cmip7,clim_2000_cmip7,clim_2010_cmip7,hist_cmip7,clim_1850_cmip6,clim_2000_cmip6,clim_2010_cmip6,hist_cmip6,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-3.4,SSP5-8.5,cplhist</valid_values>
     <default_value>clim_2000</default_value>
     <values match="last">
-      <!-- NOTE: Will distinququish between CESM and NorESM in a subsequent step -->
-      <value compset="^1850_"       >clim_1850_cesm3</value>
-      <value compset="^2000_"       >clim_2000_cmip6</value>
-      <value compset="^2010_"       >clim_2010_cmip6</value>
-      <value compset="^HIST_"       >hist_cmip6</value>
-      <value compset="^SSP126_"     >SSP1-2.6</value>
-      <value compset="^SSP245_"     >SSP2-4.5</value>
-      <value compset="^SSP370_"     >SSP3-7.0</value>
-      <value compset="^SSP585_"     >SSP5-8.5</value>
-      <value compset="_DATM%CPLHIST">cplhist</value>
+      <value compset="^1850_"                    >clim_1850_cmip7</value>
+      <value compset="^1850.*DATM.*CESM3"        >clim_1850_cesm3</value>
+      <value compset="^2000_"                    >clim_2000_cmip6</value>
+      <value compset="^2010_"                    >clim_2010_cmip6</value>
+      <value compset="^HIST_"                    >hist_cmip6</value>
+      <value compset="^SSP126_"                  >SSP1-2.6</value>
+      <value compset="^SSP245_"                  >SSP2-4.5</value>
+      <value compset="^SSP370_"                  >SSP3-7.0</value>
+      <value compset="^SSP585_"                  >SSP5-8.5</value>
+      <value compset="_DATM%CPLHIST"             >cplhist</value>
       <value compset="_DATM.*_DICE.*_DOCN.*_DROF">none</value>
     </values>
     <group>run_component_datm</group>
@@ -141,7 +145,6 @@
       <value compset="^SSP370_" >SSP3-7.0</value>
       <value compset="^SSP585_" >SSP5-8.5</value>
       <value compset="^HIST_"   >hist</value>
-      <value compset="^20TR_"   >hist</value>
       <!-- Only needed for compsets with active land; only in DATM CLMNCEP mode -->
       <value compset="_SLND">none</value>
       <value compset="_DLND">none</value>
@@ -180,7 +183,6 @@
       <value compset="^SSP534_">SSP5-3.4</value>
       <value compset="^SSP585_">SSP5-8.5</value>
       <value compset="^HIST_"  >cmip6_20tr</value>
-      <value compset="^20TR"   >cmip6_20tr</value>
       <value compset="^OMIP_DATM%IAF.*_POP2%[^_]*ECO">omip.iaf</value>
       <value compset="^OMIP_DATM%JRA.*_POP2%[^_]*ECO">omip.jra</value>
       <value compset="_DATM%CPLHIST_CLM">cplhist</value>
@@ -215,8 +217,7 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <!-- NOTE: This will be updated to distinquish between CESM and NorESM in a subsequent step -->
-      <value compset="1850.*_DATM%CPLHIST">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
+      <value compset="1850.*_DATM%CPLHIST%CESM3">$DIN_LOC_ROOT/cplhist/cesm3_0/$DATM_CPLHIST_CASE/atm</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -237,8 +238,7 @@
     <valid_values></valid_values>
     <default_value>UNSET</default_value>
     <values match="last">
-      <!-- NOTE: This will be updated to distinquish between CESM and NorESM in a subsequent step -->
-      <value compset="1850.*_DATM%CPLHIST">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
+      <value compset="1850.*_DATM%CPLHIST%CESM3">b.e30_alpha08o.B1850C_MTso.ne30_t232_wgx3.330</value>
     </values>
     <group>run_component_datm</group>
     <file>env_run.xml</file>
@@ -260,10 +260,6 @@
       <value compset="HIST.*_DATM%CRUv7">1901</value>
       <value compset="HIST.*_DATM%GSW">1901</value>
       <value compset="HIST.*_DATM%NLDAS2">$DATM_YR_START</value>
-      <value compset="20TR.*_DATM%QIA">1895</value>
-      <value compset="20TR.*_DATM%CRUJRA2024[b]*">1901</value>
-      <value compset="20TR.*_DATM%CRUv7">1901</value>
-      <value compset="20TR.*_DATM%GSW">1901</value>
       <value compset="SSP.*_DATM%QIA">$DATM_YR_START</value>
       <value compset="SSP.*_DATM%CRUJRA2024[b]*">$DATM_YR_START</value>
       <value compset="SSP.*_DATM%CRUv7">$DATM_YR_START</value>
@@ -304,10 +300,8 @@
       <value compset="1850.*_DATM%CRUv7">1901</value>
       <value compset="1850.*_DATM%GSW">1901</value>
       <value compset="1850.*_DATM%NLDAS2">0</value>  <!-- Unsupported -->
-      <!-- NOTE: This will be updated to distinquish between CESM NorESM in a subsequent step -->
-      <value compset="1850.*_DATM%CPLHIST.*_CLM">101</value>
-      <value compset="1850.*_DATM%CPLHIST.*_MOM6">101</value>
-
+      <value compset="1850.*_DATM%CPLHIST%CESM3.*_CLM">101</value>
+      <value compset="1850.*_DATM%CPLHIST%CESM3.*_MOM6">101</value>
       <value compset="2000.*_DATM%WISOQIA">2000</value>
       <value compset="2000.*_DATM%QIA">1972</value>
       <value compset="HIST.*_DATM%QIA">1948</value>
@@ -315,11 +309,6 @@
       <value compset="HIST.*_DATM%CRUv7">1901</value>
       <value compset="HIST.*_DATM%GSW">1901</value>
       <value compset="HIST.*_DATM%NLDAS2">0</value>  <!-- Unsupported -->
-      <value compset="20TR.*_DATM%QIA">1948</value>
-      <value compset="20TR.*_DATM%CRUJRA2024[b]*">1901</value>
-      <value compset="20TR.*_DATM%CRUv7">1901</value>
-      <value compset="20TR.*_DATM%GSW">1901</value>
-      <value compset="20TR.*_DATM%NLDAS2">0</value>  <!-- Unsupported -->
       <value compset="4804.*_DATM%QIA">1948</value>
       <value compset="SSP.*_DATM%QIA" >1995</value>
       <value compset="SSP.*_DATM%CRUJRA2024[b]*" >2001</value>
@@ -379,10 +368,8 @@
       <value   compset="1850.*_DATM%CRUv7">1920</value>
       <value   compset="1850.*_DATM%GSW">1920</value>
       <value   compset="1850.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
-      <!-- NOTE: This will be updated to distinquish between CESM NorESM in a subsequent step -->
-      <value   compset="1850.*_DATM%CPLHIST.*_CLM">101</value>
-      <value   compset="1850.*_DATM%CPLHIST.*_MOM6">101</value>
-
+      <value   compset="1850.*_DATM%CPLHIST%CESM3.*_CLM">101</value>
+      <value   compset="1850.*_DATM%CPLHIST%CESM3.*_MOM6">101</value>
       <value   compset="2000.*_DATM%WISOQIA">2004</value>
       <value   compset="2000.*_DATM%QIA">2004</value>
       <value   compset="HIST.*_DATM%QIA">1972</value>
@@ -390,11 +377,6 @@
       <value   compset="HIST.*_DATM%CRUv7">1920</value>
       <value   compset="HIST.*_DATM%GSW">1920</value>
       <value   compset="HIST.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
-      <value   compset="20TR.*_DATM%QIA">1972</value>
-      <value   compset="20TR.*_DATM%CRUJRA2024[b]*">1920</value>
-      <value   compset="20TR.*_DATM%CRUv7">1920</value>
-      <value   compset="20TR.*_DATM%GSW">1920</value>
-      <value   compset="20TR.*_DATM%NLDAS2">-1</value>  <!-- Unsupported -->
       <value   compset="4804.*_DATM%QIA">2004</value>
       <value   compset="SSP.*_DATM%QIA">2004</value>
       <value   compset="SSP.*_DATM%CRUJRA2024[b]*">2023</value>
