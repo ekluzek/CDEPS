@@ -116,7 +116,11 @@
     <valid_values>none,clim_1850_cesm3,clim_1850_cmip7,clim_2000_cmip7,clim_2010_cmip7,hist_cmip7,clim_1850_cmip6,clim_2000_cmip6,clim_2010_cmip6,hist_cmip6,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-3.4,SSP5-8.5,cplhist</valid_values>
     <default_value>clim_2000</default_value>
     <values match="last">
+      <!-- This first one is used for NorESM, using the CMIP7 provided data -->
       <value compset="^1850_"                    >clim_1850_cmip7</value>
+      <!-- Use cmip6 for older versions of CLM -->
+      <value compset="^1850.*CLM50"              >clim_1850_cmip6</value>
+      <!-- Use cesm3 provided climatology data for latest CESM -->
       <value compset="^1850.*DATM.*CESM3"        >clim_1850_cesm3</value>
       <value compset="^2000_"                    >clim_2000_cmip6</value>
       <value compset="^2010_"                    >clim_2010_cmip6</value>
