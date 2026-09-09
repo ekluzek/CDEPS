@@ -36,9 +36,12 @@
     <desc option="JRA-RYF0304"> JRA55 Repeat Year Forcing v1.3 2003-2004</desc>
     <desc option="ERA5">ERA5 interannual forcing</desc>
     <desc option="SIMPLE">Namelist-configurable, constant datm forcing for simple experiments</desc>
-    <!-- Optional Model specific settings -->
-    <!-- NOTE: Model specific setting HAS to appear last -->
-    <desc option="CESM3">CESM3 specific settings for DATM</desc>
+    <!-- Optional Dataset specific settings -->
+    <!-- NOTE: Dataset specific setting(s) HAVE to appear last -->
+    <!--       CMIP7 AND CESM3 can appear together (as %CMIP7%CESM3), but other CMIP options can't (so %CMIP%CESM3 isn't allowed)-->
+    <desc option="CESM3">CESM3 specific spinup datasets for DATM</desc>
+    <desc option="CMIP7">Datasets from CMIP7 used for DATM</desc>
+    <desc option="CMIP6">Datasets used for CMIP6 used for DATM</desc>
   </description>
 
   <entry id="COMP_ATM">
@@ -116,12 +119,15 @@
     <valid_values>none,clim_1850_cesm3,clim_1850_cmip7,clim_2000_cmip7,clim_2010_cmip7,hist_cmip7,clim_1850_cmip6,clim_2000_cmip6,clim_2010_cmip6,hist_cmip6,SSP1-2.6,SSP2-4.5,SSP3-7.0,SSP5-3.4,SSP5-8.5,cplhist</valid_values>
     <default_value>clim_2000</default_value>
     <values match="last">
+      <!-- Default to CMIP6 if dataset specifier is not given -->
+      <value compset="^1850_"                    >clim_1850_cmip6</value>
       <!-- This first one is used for NorESM, using the CMIP7 provided data -->
-      <value compset="^1850_"                    >clim_1850_cmip7</value>
-      <!-- Use cmip6 for older versions of CLM -->
-      <value compset="^1850.*CLM50"              >clim_1850_cmip6</value>
-      <!-- Use cesm3 provided climatology data for latest CESM -->
+      <value compset="^1850.*DATM.*CMIP7"        >clim_1850_cmip7</value>
+      <!-- Use cmip6 when specified -->
+      <value compset="^1850.*DATM.*CMIP6"        >clim_1850_cmip6</value>
+      <!-- Use cesm3 provided climatology data when specified -->
       <value compset="^1850.*DATM.*CESM3"        >clim_1850_cesm3</value>
+
       <value compset="^2000_"                    >clim_2000_cmip6</value>
       <value compset="^2010_"                    >clim_2010_cmip6</value>
       <value compset="^HIST_"                    >hist_cmip6</value>
