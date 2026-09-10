@@ -4936,8 +4936,8 @@
     </stream_datafiles>
     <stream_datavars>
       <!-- the following stream fields are in units of g/m2/sec - need conversion to kg/m2/sec-->
-      <var>NDEP_NHx_month  Faxa_ndep_nhx</var>
-      <var>NDEP_NOy_month  Faxa_ndep_noy</var>
+      <var>NDEP_NHx_month  Faxa_ndep_nhx  1.0d-3</var>
+      <var>NDEP_NOy_month  Faxa_ndep_noy  1.0d-3</var>
     </stream_datavars>
     <stream_lev_dimname>null</stream_lev_dimname>
     <stream_mapalgo>
