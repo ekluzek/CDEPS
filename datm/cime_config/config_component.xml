@@ -38,7 +38,7 @@
     <desc option="SIMPLE">Namelist-configurable, constant datm forcing for simple experiments</desc>
     <!-- Optional Dataset specific settings -->
     <!-- NOTE: Dataset specific setting(s) HAVE to appear last -->
-    <!--       CMIP7 AND CESM3 can appear together (as %CMIP7%CESM3), but other CMIP options can't (so %CMIP%CESM3 isn't allowed)-->
+    <!--       CMIP7 AND CESM3 can appear together (as %CMIP7%CESM3), but other CMIP options can't (so %CMIP6%CESM3 isn't allowed)-->
     <desc option="CESM3">CESM3 specific spinup datasets for DATM</desc>
     <desc option="CMIP7">Datasets from CMIP7 used for DATM</desc>
     <desc option="CMIP6">Datasets used for CMIP6 used for DATM</desc>
@@ -122,7 +122,7 @@
       <!-- Default to CMIP6 if dataset specifier is not given -->
       <value compset="^1850_"                    >clim_1850_cmip6</value>
       <!-- This first one is used for NorESM, using the CMIP7 provided data -->
-      <value compset="^1850.*DATM.*CMIP7"        >clim_1850_cmip7</value>
+      <value compset="^1850.*DATM.*CMIP7_"       >clim_1850_cmip7</value>
       <!-- Use cmip6 when specified -->
       <value compset="^1850.*DATM.*CMIP6"        >clim_1850_cmip6</value>
       <!-- Use cesm3 provided climatology data when specified -->
