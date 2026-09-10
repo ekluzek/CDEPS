@@ -13,9 +13,9 @@
           grid, compset, cime_model
   -->
   <description modifier_mode="+">
-    <desc atm="DATM[%QIA][%WISOQIA][%CRUJRA2024][%CRUJRA2024b][%CRUv7][%GSWP3v1][%MOSARTTEST][%NLDAS2][%CPLHIST][%1PT][%NYF][%IAF][%JRA][%JRA-1p4-2018][%JRA-1p5-2023][%JRA-RYF6162][%JRA-RYF8485][%JRA-RYF9091][%JRA-RYF0304][%SIMPLE][%CESM3]"> Data driven ATM </desc>
+    <desc atm="DATM[%QIA][%WISOQIA][%CRUJRA2024][%CRUJRA2024b][%CRUv7][%GSWP3v1][%MOSARTTEST][%NLDAS2][%CPLHIST][%1PT][%NYF][%IAF][%JRA][%JRA-1p4-2018][%JRA-1p5-2023][%JRA-RYF6162][%JRA-RYF8485][%JRA-RYF9091][%JRA-RYF0304][%SIMPLE][%CMIP6][%CMIP7][%CESM3]"> Data driven ATM </desc>
     <!-- Following options are the different forcing modes - only one can be selected at a time -->
-    <!-- NOTE: Model specific setting HAS to appear first -->
+    <!-- NOTE: forcing option HAS to appear first -->
     <desc option="QIA"> QIAN data set </desc>
     <desc option="WISOQIA">QIAN with water isotopes</desc>
     <desc option="CRUJRA2024"> CRUJRA 2024 data set </desc>
@@ -36,8 +36,8 @@
     <desc option="JRA-RYF0304"> JRA55 Repeat Year Forcing v1.3 2003-2004</desc>
     <desc option="ERA5">ERA5 interannual forcing</desc>
     <desc option="SIMPLE">Namelist-configurable, constant datm forcing for simple experiments</desc>
-    <!-- Optional Dataset specific settings -->
-    <!-- NOTE: Dataset specific setting(s) HAVE to appear last -->
+    <!-- Optional chemical constituent Dataset specifier settings (for aerosols, CO2, O3, and NDEP) -->
+    <!-- NOTE: chemical constituent Dataset specifiers) HAVE to appear last -->
     <!--       CMIP7 AND CESM3 can appear together (as %CMIP7%CESM3), but other CMIP options can't (so %CMIP6%CESM3 isn't allowed)-->
     <desc option="CESM3">CESM3 specific spinup datasets for DATM</desc>
     <desc option="CMIP7">Datasets from CMIP7 used for DATM</desc>
