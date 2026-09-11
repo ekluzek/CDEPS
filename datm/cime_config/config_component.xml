@@ -123,11 +123,11 @@
       <!-- Default to CMIP6 if dataset specifier is not given -->
       <value compset="^1850_"                    >clim_1850_cmip6</value>
       <!-- This first one is used for NorESM, using the CMIP7 provided data -->
-      <value compset="^1850.*DATM.*CMIP7_"       >clim_1850_cmip7</value>
+      <value compset="^1850.*DATM[^_]*CMIP7_"    >clim_1850_cmip7</value>
       <!-- Use cmip6 when specified -->
-      <value compset="^1850.*DATM.*CMIP6"        >clim_1850_cmip6</value>
+      <value compset="^1850.*DATM[^_]*CMIP6_"    >clim_1850_cmip6</value>
       <!-- Use cesm3 provided climatology data when specified -->
-      <value compset="^1850.*DATM.*CESM3"        >clim_1850_cesm3</value>
+      <value compset="^1850.*DATM[^_]*CESM3_"    >clim_1850_cesm3</value>
 
       <value compset="^2000_"                    >clim_2000_cmip6</value>
       <value compset="^2010_"                    >clim_2010_cmip6</value>
