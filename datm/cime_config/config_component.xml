@@ -14,8 +14,6 @@
   -->
   <description modifier_mode="1">
     <desc atm="DATM[%QIA][%WISOQIA][%CRUJRA2024][%CRUJRA2024b][%CRUv7][%GSWP3v1][%MOSARTTEST][%NLDAS2][%CPLHIST][%CPLHIST-CESM3][%1PT][%NYF][%IAF][%JRA][%JRA-1p4-2018][%JRA-1p5-2023][%JRA-RYF6162][%JRA-RYF8485][%JRA-RYF9091][%JRA-RYF0304][%SIMPLE]"> Data driven ATM </desc>
-    <!-- Following options are the different forcing modes - only one can be selected at a time -->
-    <!-- NOTE: forcing option HAS to appear first -->
     <desc option="QIA"> QIAN data set </desc>
     <desc option="WISOQIA">QIAN with water isotopes</desc>
     <desc option="CRUJRA2024"> CRUJRA 2024 data set </desc>
@@ -119,7 +117,7 @@
       <value compset="^1850.*DATM"               >clim_1850_cmip7</value>
       -->
       <!-- CESM3 uses the CESM3 spinup dataset -->
-      <value compset="^1850.*DATM.*_CLM50"       >clim_1850_cesm3</value>
+      <value compset="^1850.*DATM"               >clim_1850_cesm3</value>
       <!-- Use cmip6 when using CLM5 physics -->
       <value compset="^1850.*DATM.*_CLM50"       >clim_1850_cmip6</value>
 
