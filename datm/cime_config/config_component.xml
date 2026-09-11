@@ -39,10 +39,10 @@
     <desc option="SIMPLE">Namelist-configurable, constant datm forcing for simple experiments</desc>
     <!-- Optional chemical constituent Dataset specifier settings (for aerosols, CO2, O3, and NDEP) -->
     <!-- NOTE: chemical constituent Dataset specifiers) HAVE to appear last -->
-    <!--       CMIP7 AND CESM3 can appear together (as %CMIP7%CESM3), but other CMIP options can't (so %CMIP6%CESM3 isn't allowed)-->
-    <desc option="CESM3">CESM3 specific spinup datasets for DATM</desc>
-    <desc option="CMIP7">Datasets from CMIP7 used for DATM</desc>
-    <desc option="CMIP6">Datasets used for CMIP6 used for DATM</desc>
+    <!--       CMIP AND CESM3 can appear together (for example as %CMIP7%CESM3)-->
+    <desc option="CESM3">CESM3 specific spinup datasets for DATM (applies to NDEP)</desc>
+    <desc option="CMIP7">Datasets from CMIP7 used for DATM (applies to CO2, and NDEP)</desc>
+    <desc option="CMIP6">Datasets used for CMIP6 with DATM (applies to AERO, CO2, O3, and NDEP)</desc>
   </description>
 
   <entry id="COMP_ATM">
