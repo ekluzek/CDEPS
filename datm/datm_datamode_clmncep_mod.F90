@@ -438,11 +438,11 @@ contains
 
        !--- shortwave radiation ---
        if (associated(strm_Faxa_swdndf) .and. associated(strm_Faxa_swdndr)) then
+          Faxa_swdn(n) = strm_Faxa_swdndr(n) + strm_Faxa_swdndf(n)
           Faxa_swndr(n) = strm_Faxa_swdndr(n) * 0.50_r8
           Faxa_swvdr(n) = strm_Faxa_swdndr(n) * 0.50_r8
           Faxa_swndf(n) = strm_Faxa_swdndf(n) * 0.50_r8
           Faxa_swvdf(n) = strm_Faxa_swdndf(n) * 0.50_r8
-          Faxa_swdn(n) = strm_Faxa_swdndr(n) + strm_Faxa_swdndf(n)
        elseif (associated(strm_Faxa_swdn)) then
           Faxa_swdn(n) = strm_Faxa_swdn(n)
           ! relationship between incoming NIR or VIS radiation and ratio of
